@@ -1,13 +1,13 @@
-import { Message } from "./message";
+import { Message } from "./Message";
 
 export const MessageList = (props) => {
   const { messages } = props;
 
   return (
-    <div className="flex flex-col flex-grow py-3 overflow-auto">
-      {messages.map((msg, i) =>
-        i % 6 === 0 ? <TimeDivider date="Today" /> : <Message {...msg} />
-      )}
+    <div className="flex flex-col flex-grow py-3 overflow-auto bg-neutral-700">
+      {messages.map((msg, i) => (
+        <Message {...msg} />
+      ))}
     </div>
   );
 };

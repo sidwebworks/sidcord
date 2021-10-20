@@ -1,24 +1,49 @@
-import { clsx } from "../../utils/clsx";
+import { clsx } from "../../lib/utils/clsx";
 import Markdown from "markdown-to-jsx";
+import CodeBlock from "./CodeBlock";
 
 export const Message = (props) => {
   const { sender, body, date } = props;
+
   const userName = "Sidharth";
 
   return (
     <div
       className={clsx([
-        "flex px-4 py-3",
-        sender === userName && "flex-row-reverse",
+        "flex px-4 py-3 ",
+        sender === userName && "flex-row-reverse ",
       ])}
     >
-      <div className="flex-shrink-0 w-10 h-10 bg-gray-300 rounded" />
-      <div className={clsx(["mx-2", sender === userName && "text-right"])}>
+      <img
+        src="http://daisyui.com/tailwind-css-component-profile-1@94w.png"
+        width={40}
+        height={40}
+        className="flex-shrink-0 object-cover w-12 h-12 bg-gray-300 rounded-full avatar"
+      />
+      <div
+        className={clsx([
+          "mx-2 max-w-prose",
+          sender === userName && "text-right",
+        ])}
+      >
         <div className="-mt-1">
           <span className="text-sm font-semibold">{sender}</span>
           <span className="ml-1 text-xs text-gray-500">{date}</span>
         </div>
-        <Markdown>{body}</Markdown>
+        <div className="py-2">
+          <Markdown
+            options={{
+              forceBlock: true,
+              overrides: {
+                code: {
+                  component: CodeBlock,
+                },
+              },
+            }}
+          >
+            {body}
+          </Markdown>
+        </div>
         <Reactions />
         {/* <Replies /> */}
       </div>

@@ -12,22 +12,22 @@ module.exports = {
     extend: {
       colors: {
         ...extendedColors,
-        blueGray: {
-          50: "#f2f2f4",
-          100: "#d2d2d4",
-          200: "#a4a4a9",
-          300: "#77777e",
-          400: "#494953",
-          500: "#1c1c28",
-          600: "#161620",
-          700: "#111118",
-          800: "#0b0b10",
-          900: "#060608",
+
+        neutral: {
+          100: "#d4d5d7",
+          200: "#aaabaf",
+          300: "#7f8287",
+          400: "#55585f",
+          500: "#2a2e37",
+          600: "#22252c",
+          700: "#191c21",
+          800: "#111216",
+          900: "#08090b",
         },
       },
       fontFamily: {
-        sans: ["Poppins", "sans-serif"],
-        logo: ["Montserrat", "poppins", "sans-serif"],
+        sans: ["Inter", "sans-serif"],
+        logo: ["Inter", "sans-serif"],
       },
     },
   },
@@ -38,5 +38,12 @@ module.exports = {
     require("@tailwindcss/forms"),
     require("@tailwindcss/line-clamp"),
     require("tailwindcss-debug-screens"),
+    require("@tailwindcss/aspect-ratio"),
+    require("daisyui"),
   ],
+
+  daisyui: {
+    themes: ["dark"],
+    styled: false,
+  },
 };

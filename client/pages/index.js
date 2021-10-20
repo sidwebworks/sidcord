@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useState } from "react";
 import { AuthForm } from "../components/forms/authForm";
-import { SlideOver } from "../components/lib/slideOver";
+import { SlideOver } from "../components/ui/slideOver";
 import HomeLayout from "../components/layouts/home.layout";
 import {
   AnnotationIcon,
@@ -41,11 +41,7 @@ export default function Home() {
   ];
   return (
     <HomeLayout>
-      <SlideOver
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-      
-      >
+      <SlideOver isOpen={isOpen} setIsOpen={setIsOpen}>
         <AuthForm />
       </SlideOver>
       <section className="text-blueGray-700 ">
