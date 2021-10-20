@@ -16,43 +16,12 @@ export const ChannelSidebar = () => {
       leaveTo="opacity-0 scale-95"
     >
       <div className="flex flex-col flex-shrink-0 w-64 bg-base-200">
-        <div className="relative flex-shrink-0 gap-3 px-2 pt-3 text-sm focus:outline-none group">
-          <Button className="inline-block w-1/2">Direct</Button>
-          <Button className="inline-block w-1/2">Usre</Button>
-        </div>
+        <img src="https://i.imgur.com/ZUsxbHK.jpeg" className="relative flex-shrink-0 object-cover w-full h-32 text-sm focus:outline-none "/>
         <div className="flex-grow h-0 overflow-auto">
           <div className="mt-3">
+        
             <a
-              className="flex items-center h-8 px-3 text-sm hover:bg-gray-300"
-              href="#"
-            >
-              <svg
-                className="w-4 h-4"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"
-                />
-              </svg>
-              <span className="ml-2 font-bold leading-none">All DMs</span>
-            </a>
-            <a
-              className="flex items-center h-8 px-3 text-sm hover:bg-gray-300"
-              href="#"
-            >
-              <span className="w-4 leading-none">@</span>
-              <span className="ml-2 leading-none">
-                Mentions &amp; Reactions
-              </span>
-            </a>
-            <a
-              className="flex items-center h-8 px-3 text-sm hover:bg-gray-300"
+              className="flex items-center h-8 px-3 text-sm hover:bg-neutral-600 hover:text-primary"
               href="#"
             >
               <svg
@@ -72,7 +41,7 @@ export const ChannelSidebar = () => {
               <span className="ml-2 leading-none">Saved Items</span>
             </a>
             <a
-              className="flex items-center h-8 px-3 text-sm hover:bg-gray-300"
+              className="flex items-center h-8 px-3 text-sm hover:bg-neutral-600 hover:text-primary"
               href="#"
             >
               <svg
@@ -114,7 +83,7 @@ export const ChannelSidebar = () => {
                   Channels
                 </span>
               </button>
-              <button className="items-center justify-center hidden w-6 h-6 ml-auto rounded group-hover:flex hover:bg-gray-300">
+              <button className="items-center justify-center hidden w-6 h-6 ml-auto rounded group-hover:flex hover:bg-neutral-600 hover:text-primary">
                 <svg
                   className="w-4 h-4"
                   xmlns="http://www.w3.org/2000/svg"
@@ -130,7 +99,7 @@ export const ChannelSidebar = () => {
                   />
                 </svg>
               </button>
-              <button className="flex items-center justify-center w-6 h-6 ml-1 rounded hover:bg-gray-300">
+              <button className="flex items-center justify-center w-6 h-6 ml-1 rounded hover:bg-neutral-600 hover:text-primary">
                 <svg
                   className="w-5 h-5"
                   xmlns="http://www.w3.org/2000/svg"
@@ -149,7 +118,7 @@ export const ChannelSidebar = () => {
             </div>
             <div id="channels_list">
               <a
-                className="flex items-center h-8 pl-8 pr-3 text-sm bg-gray-300"
+                className="flex items-center h-8 pl-8 pr-3 text-sm text-primary"
                 href="#"
               >
                 <svg
@@ -169,7 +138,7 @@ export const ChannelSidebar = () => {
                 </span>
               </a>
               <a
-                className="flex items-center h-8 pl-8 pr-3 text-sm hover:bg-gray-300"
+                className="flex items-center h-8 pl-8 pr-3 text-sm hover:bg-neutral-600 hover:text-primary"
                 href="#"
               >
                 <svg
@@ -187,7 +156,7 @@ export const ChannelSidebar = () => {
                 <span className="ml-2 leading-none">the-fellowship</span>
               </a>
               <a
-                className="flex items-center h-8 pl-8 pr-3 text-sm hover:bg-gray-300"
+                className="flex items-center h-8 pl-8 pr-3 text-sm hover:bg-neutral-600 hover:text-primary"
                 href="#"
               >
                 <svg
@@ -205,7 +174,7 @@ export const ChannelSidebar = () => {
                 <span className="ml-2 leading-none">and-another</span>
               </a>
               <a
-                className="flex items-center h-8 pl-8 pr-3 text-sm hover:bg-gray-300"
+                className="flex items-center h-8 pl-8 pr-3 text-sm hover:bg-neutral-600 hover:text-primary"
                 href="#"
               >
                 <svg
@@ -225,7 +194,7 @@ export const ChannelSidebar = () => {
                 </span>
               </a>
               <a
-                className="flex items-center h-8 pl-8 pr-3 text-sm hover:bg-gray-300"
+                className="flex items-center h-8 pl-8 pr-3 text-sm hover:bg-neutral-600 hover:text-primary"
                 href="#"
               >
                 <svg
@@ -266,7 +235,7 @@ export const ChannelSidebar = () => {
                   Direct Messages
                 </span>
               </button>
-              <button className="items-center justify-center hidden w-6 h-6 ml-auto rounded group-hover:flex hover:bg-gray-300">
+              <button className="items-center justify-center hidden w-6 h-6 ml-auto rounded group-hover:flex hover:bg-neutral-600 hover:text-primary">
                 <svg
                   className="w-4 h-4"
                   xmlns="http://www.w3.org/2000/svg"
@@ -282,7 +251,7 @@ export const ChannelSidebar = () => {
                   />
                 </svg>
               </button>
-              <button className="flex items-center justify-center w-6 h-6 ml-1 rounded hover:bg-gray-300">
+              <button className="flex items-center justify-center w-6 h-6 ml-1 rounded hover:bg-neutral-600 hover:text-primary">
                 <svg
                   className="w-5 h-5"
                   xmlns="http://www.w3.org/2000/svg"
@@ -301,7 +270,7 @@ export const ChannelSidebar = () => {
             </div>
             <div id="messages_list">
               <a
-                className="flex items-center h-8 pl-8 pr-3 text-sm hover:bg-gray-300"
+                className="flex items-center h-8 pl-8 pr-3 text-sm hover:bg-neutral-600 hover:text-primary"
                 href="#"
               >
                 <div className="flex justify-center w-4">
@@ -315,7 +284,7 @@ export const ChannelSidebar = () => {
                 </span>
               </a>
               <a
-                className="flex items-center h-8 pl-8 pr-3 text-sm hover:bg-gray-300"
+                className="flex items-center h-8 pl-8 pr-3 text-sm hover:bg-neutral-600 hover:text-primary"
                 href="#"
               >
                 <div className="flex justify-center w-4">
@@ -324,7 +293,7 @@ export const ChannelSidebar = () => {
                 <span className="ml-2 leading-none">Gandalf The Grey</span>
               </a>
               <a
-                className="flex items-center h-8 pl-8 pr-3 text-sm hover:bg-gray-300"
+                className="flex items-center h-8 pl-8 pr-3 text-sm hover:bg-neutral-600 hover:text-primary"
                 href="#"
               >
                 <div className="flex justify-center w-4">
@@ -335,7 +304,7 @@ export const ChannelSidebar = () => {
                 </span>
               </a>
               <a
-                className="flex items-center h-8 pl-8 pr-3 text-sm hover:bg-gray-300"
+                className="flex items-center h-8 pl-8 pr-3 text-sm hover:bg-neutral-600 hover:text-primary"
                 href="#"
               >
                 <div className="flex items-center justify-center w-4 h-4 bg-gray-600 rounded">
@@ -349,7 +318,7 @@ export const ChannelSidebar = () => {
                 </span>
               </a>
               <a
-                className="flex items-center h-8 pl-8 pr-3 text-sm hover:bg-gray-300"
+                className="flex items-center h-8 pl-8 pr-3 text-sm hover:bg-neutral-600 hover:text-primary"
                 href="#"
               >
                 <div className="flex items-center justify-center w-4 h-4 bg-gray-600 rounded">

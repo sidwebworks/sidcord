@@ -6,7 +6,7 @@ export const MessageList = (props) => {
   return (
     <div className="flex flex-col flex-grow py-3 overflow-auto bg-neutral-700">
       {messages.map((msg, i) => (
-        <Message {...msg} />
+        <Message {...msg} index={i} />
       ))}
     </div>
   );

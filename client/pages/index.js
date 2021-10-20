@@ -1,8 +1,8 @@
 import Head from "next/head";
 import { useState } from "react";
 import { AuthForm } from "../components/forms/authForm";
-import { SlideOver } from "../components/ui/slideOver";
-import HomeLayout from "../components/layouts/home.layout";
+import { SlideOver } from "../components/ui/SlideOver";
+import HomeLayout from "../components/layouts/HomeLayout";
 import {
   AnnotationIcon,
   GlobeAltIcon,

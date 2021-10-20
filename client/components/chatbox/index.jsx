@@ -28,3 +28,5 @@ const ChatHeader = ({ title, description }) => {
     </div>
   );
 };
+
+export * from "./channels/ChannelSidebar";

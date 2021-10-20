@@ -1,11 +1,15 @@
 import { clsx } from "../../lib/utils/clsx";
 import Markdown from "markdown-to-jsx";
 import CodeBlock from "./CodeBlock";
+import relativeTime from "dayjs/plugin/relativeTime";
+import dayjs from "dayjs";
+
+dayjs.extend(relativeTime);
 
 export const Message = (props) => {
-  const { sender, body, date } = props;
+  const { sender, body, date , index} = props;
 
-  const userName = "Sidharth";
+  const userName = index % 3 === 0 ? "Sidharth" : "Chattan";
 
   return (
     <div
@@ -22,18 +26,19 @@ export const Message = (props) => {
       />
       <div
         className={clsx([
-          "mx-2 max-w-prose",
+          "mx-2 max-w-3xl",
           sender === userName && "text-right",
         ])}
       >
         <div className="-mt-1">
           <span className="text-sm font-semibold">{sender}</span>
-          <span className="ml-1 text-xs text-gray-500">{date}</span>
+          <span className="ml-1 text-xs text-gray-500">
+            {dayjs(date).fromNow()}
+          </span>
         </div>
         <div className="py-2">
           <Markdown
             options={{
-              forceBlock: true,
               overrides: {
                 code: {
                   component: CodeBlock,
@@ -44,7 +49,7 @@ export const Message = (props) => {
             {body}
           </Markdown>
         </div>
-        <Reactions />
+        {/* <Reactions /> */}
         {/* <Replies /> */}
       </div>
     </div>
