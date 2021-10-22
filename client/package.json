@@ -25,6 +25,7 @@
     "react-hook-form": "^7.17.5",
     "react-redux": "^7.2.5",
     "redux-toolkit": "^1.1.2",
+    "socket.io-client": "^4.3.2",
     "yup": "^0.32.11"
   },
   "devDependencies": {

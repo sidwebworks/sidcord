@@ -4,7 +4,6 @@ import { config } from 'dotenv'
 import logger from './logger'
 
 const { parsed } = config({
-    path: join(process.cwd(), 'src/config/.env'),
     debug: process.env.NODE_ENV === 'development',
 })
 

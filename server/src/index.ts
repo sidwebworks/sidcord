@@ -10,21 +10,32 @@ import 'module-alias/register'
 //! THIS IS REQUIRED FOR MODULE ALIASES TO WORK.
 
 import http from 'http'
-
+import { Server } from 'socket.io'
 import './config'
 import logger from '@config/logger'
-import connect from '@config/loaders/mongoose.loader'
 import app from './api/app'
 
 const PORT = process.env.PORT || 3000
 
 const server = http.createServer(app)
 
-connect().then(() =>
-    server.listen(PORT, () => {
-        logger.debug(`Server started at ${PORT}`)
-    })
-)
+const io = new Server(server, {
+    cors: {
+        origin: 'http://localhost:3000',
+        methods: ['GET', 'POST'],
+    },
+})
+
+server.listen(PORT, () => {
+    logger.debug(`Server started at ${PORT}`)
+})
+
+io.on('connection', (socket) => {
+    console.log('New client' + socket.id)
+
+    socket.emit("message", "Hello")
+})
+
 
 process.on('unhandledRejection', (err: Error) => {
     console.log(

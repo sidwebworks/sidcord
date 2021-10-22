@@ -1,5 +1,5 @@
 {
-    "name": "@sidcord/server",
+    "name": "example",
     "version": "1.0.0",
     "private": true,
     "main": "dist/index.js",
@@ -18,7 +18,7 @@
     "scripts": {
         "prestart": "rimraf dist && tsc",
         "start": "cross-env NODE_ENV=production node ./dist/index.js",
-        "dev": "cross-env NODE_ENV=development tsup src --watch --onSuccess \"node dist/index.js\"",
+        "dev": "cross-env NODE_ENV=development tsup src --watch --silent --onSuccess \"node dist/index.js\"",
         "lint": "eslint --fix ."
     },
     "_moduleAliases": {
@@ -41,6 +41,7 @@
         "mongoose": "^6.0.9",
         "morgan": "^1.10.0",
         "rimraf": "^3.0.2",
+        "socket.io": "^4.3.1",
         "tsup": "^5.4.0",
         "winston": "^3.3.3",
         "yup": "^0.32.9"
