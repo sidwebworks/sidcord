@@ -1,5 +1,5 @@
 import Highlight, { defaultProps } from "prism-react-renderer";
-import { clsx } from "../../lib/utils/clsx";
+import { clsx } from "../../../lib/utils/clsx";
 import theme from "prism-react-renderer/themes/nightOwl";
 
 const CodeBlock = (props) => {
@@ -21,13 +21,13 @@ const CodeBlock = (props) => {
           }}
           className={clsx([
             className,
-            "rounded-md whitespace-pre-wrap  break-words text-left",
+            "rounded-md whitespace-pre-wrap break-normal  text-left",
           ])}
         >
           {tokens.map((line, i) => (
             <div {...getLineProps({ line, key: i })}>
               {line.map((token, key) => (
-                <span {...getTokenProps({ token, key })} />
+                <code {...getTokenProps({ token, key })} />
               ))}
             </div>
           ))}

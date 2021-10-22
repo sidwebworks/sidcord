@@ -41,7 +41,7 @@ export default function Home() {
   ];
   return (
     <HomeLayout>
-      <SlideOver isOpen={isOpen} setIsOpen={setIsOpen}>
+      <SlideOver isOpen={isOpen} setIsOpen={setIsOpen} width="max-w-md">
         <AuthForm />
       </SlideOver>
       <section className="text-blueGray-700 ">

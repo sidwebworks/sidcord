@@ -1,4 +1,4 @@
-import { clsx } from "../../lib/utils/clsx";
+import { clsx } from "../../../lib/utils/clsx";
 import Markdown from "markdown-to-jsx";
 import CodeBlock from "./CodeBlock";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -6,15 +6,22 @@ import dayjs from "dayjs";
 
 dayjs.extend(relativeTime);
 
+const Debug = (props) => {
+  console.log("props: ", props);
+  return <>{props.children}</>;
+};
+
 export const Message = (props) => {
-  const { sender, body, date , index} = props;
+  const { sender, body, date, index } = props;
 
   const userName = index % 3 === 0 ? "Sidharth" : "Chattan";
 
+  const time = dayjs(date).format('h:m a') 
+  
   return (
     <div
       className={clsx([
-        "flex px-4 py-3 ",
+        "flex px-4 py-3 w-full",
         sender === userName && "flex-row-reverse ",
       ])}
     >
@@ -26,22 +33,35 @@ export const Message = (props) => {
       />
       <div
         className={clsx([
-          "mx-2 max-w-3xl",
+          "mx-2 max-w-prose xl:max-w-3xl  flex-col flex-grow",
           sender === userName && "text-right",
         ])}
       >
         <div className="-mt-1">
           <span className="text-sm font-semibold">{sender}</span>
-          <span className="ml-1 text-xs text-gray-500">
-            {dayjs(date).fromNow()}
-          </span>
+          <span className="ml-1 text-xs text-gray-500">{time}</span>
         </div>
         <div className="py-2">
           <Markdown
             options={{
+              disableParsingRawHTML: true,
+
               overrides: {
                 code: {
                   component: CodeBlock,
+                },
+                link: {
+                  component: Debug,
+                },
+                a: {
+                  component: Debug,
+                },
+                feImage: {
+                  component: Debug,
+                },
+
+                image: {
+                  component: Debug,
                 },
               },
             }}

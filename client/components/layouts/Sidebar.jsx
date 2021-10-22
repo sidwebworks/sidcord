@@ -22,12 +22,14 @@ const sidebar_items = [
     label: "Home Page",
     url: "/dashboard",
     Icon: HomeIcon,
-    id: "1028-asd-ai331",
+    regex: /^\/dashboard\/?$/s,
+    id: "1098uaspjd-asdia0s9d",
   },
 
   {
     label: "Chat Page",
     url: "/dashboard/chat",
+    regex: /^\/dashboard\/chat\/?(?:direct\/?\w+|\w+)?/s,
     Icon: ChatAlt2Icon,
     id: "1028-asd-ai331",
   },
@@ -36,12 +38,14 @@ const sidebar_items = [
     label: "Store",
     url: "/dashboard/collections",
     Icon: ArchiveIcon,
+    regex: /^\/dashboard\/?collections\/?/s,
     id: "57120-0asd",
   },
   {
     label: "Code Playground",
     url: "/dashboard/playground",
     Icon: CodeIcon,
+    regex: /dsd/g,
     id: "-da-f21s-da31",
   },
 ];
@@ -55,13 +59,11 @@ export const Sidebar = () => {
   useEffect(() => {
     /**
      * ? Function to: Update active sidebar item based on route pathname.
-     * @param {[]} sidebarItems
+     * @param [] sidebarItems
      */
     const selectItem = (sidebarItems) => {
-      const pathName = router.pathname;
-
       let selectedItem = sidebarItems.findIndex((item) =>
-        pathName.endsWith(item.url)
+        item.regex.test(router.pathname)
       );
 
       setActive(selectedItem);
@@ -69,10 +71,6 @@ export const Sidebar = () => {
 
     selectItem(sidebar_items);
   }, [router.pathname]);
-
-  const handleSelect = (index) => {
-    setActive(index);
-  };
 
   return (
     <>
@@ -100,7 +98,7 @@ export const Sidebar = () => {
               {sidebar_items.map(({ Icon, ...item }, idx) => (
                 <Link key={item.id} href={item.url}>
                   <a
-                    onClick={() => handleSelect(idx)}
+                    onClick={() => setActive(idx)}
                     className={clsx([
                       "inline-flex items-center w-full p-3 rounded-md mt-2 text-base transition duration-300 ease-in-out bg-base-200  outline-none ",
                       active === idx
@@ -118,9 +116,7 @@ export const Sidebar = () => {
             <button
               className={clsx([
                 "inline-flex items-center w-full p-3 rounded-md mt-2 text-base transition duration-300 ease-in-out   outline-none ",
-                router.pathname.includes("/settings")
-                  ? "text-primary "
-                  : " text-gray-600   hover:text-primary ",
+                " text-gray-600   hover:text-primary ",
               ])}
             >
               <Settings className="w-6 h-6 mx-auto stroke-current" />
@@ -137,8 +133,8 @@ export const Sidebar = () => {
             </button>
           </div>
 
-          <div className="flex items-center p-2 mt-2 mb-2 rounded-full ">
-            <Avatar.Root className="w-12 h-12 avatar ">
+          <div className="flex items-center p-2 mx-auto mt-2 mb-2 rounded-full ">
+            <Avatar.Root className="w-11 h-11 avatar ">
               <Avatar.Image
                 className="overflow-hidden rounded-full"
                 alt="Colm Tuite"

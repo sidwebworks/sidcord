@@ -1,5 +1,5 @@
 import Announcement from "../../components/ui/Announcement";
-
+import DashboardLayout from "../../components/layouts/DashboardLayout";
 export default function Dashboard() {
   return (
     <>
@@ -9,3 +9,4 @@ export default function Dashboard() {
     </>
   );
 }
+Dashboard.Layout = DashboardLayout;

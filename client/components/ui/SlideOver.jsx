@@ -1,8 +1,17 @@
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
+import { clsx } from "lib/utils/clsx";
+import { useOnClickOutside } from "lib/hooks/use-outsideclick";
 
-export const SlideOver = ({ children, title, setIsOpen, isOpen = false }) => {
+export const SlideOver = ({
+  children,
+  title,
+  setIsOpen,
+  isOpen = false,
+  width = "max-w-sm",
+  overlay = true,
+}) => {
   const onClose = () => setIsOpen(false);
 
   return (
@@ -22,7 +31,12 @@ export const SlideOver = ({ children, title, setIsOpen, isOpen = false }) => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Dialog.Overlay className="absolute inset-0 transition-opacity bg-gray-500 bg-opacity-75" />
+            <Dialog.Overlay
+              className={clsx([
+                "fixed inset-0 transition-opacity duration-500 ease-in-out bg-gray-900",
+                overlay ? " bg-opacity-75" : " bg-opacity-0",
+              ])}
+            />
           </Transition.Child>
           <div className="fixed inset-y-0 right-0 flex max-w-full pl-10">
             <Transition.Child
@@ -34,7 +48,7 @@ export const SlideOver = ({ children, title, setIsOpen, isOpen = false }) => {
               leaveFrom="translate-x-0"
               leaveTo="translate-x-full"
             >
-              <div className="relative w-screen max-w-md">
+              <div className={clsx(["relative w-screen", width])}>
                 <Transition.Child
                   as={Fragment}
                   enter="ease-in-out duration-500"
@@ -47,7 +61,7 @@ export const SlideOver = ({ children, title, setIsOpen, isOpen = false }) => {
                   <div className="absolute top-0 left-0 flex pt-4 pr-2 -ml-8 sm:-ml-10 sm:pr-4">
                     <button
                       type="button"
-                      className="text-gray-300 rounded-md hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
+                      className="rounded-md text-base-100 hover:text-primary focus:outline-none focus:ring-2 focus:ring-base-100"
                       onClick={onClose}
                     >
                       <span className="sr-only">Close panel</span>
@@ -55,7 +69,7 @@ export const SlideOver = ({ children, title, setIsOpen, isOpen = false }) => {
                     </button>
                   </div>
                 </Transition.Child>
-                <div className="flex flex-col h-full py-6 overflow-y-scroll bg-white shadow-xl">
+                <div className="flex flex-col h-full py-6 overflow-y-scroll shadow-xl bg-neutral-700">
                   <div className="px-4 sm:px-6">
                     <Dialog.Title className="text-lg font-medium text-gray-900">
                       {title}

@@ -1,22 +1,16 @@
 import { useRouter } from "next/router";
 import { Provider } from "react-redux";
 import { ThemeProvider } from "next-themes";
-import DashboardLayout from "../components/layouts/DashboardLayout";
 import store from "../lib/redux";
 import "../styles/globals.css";
-import Announcement from "../components/ui/Announcement";
 
-const Layout = ({ children }) => {
-  const { pathname } = useRouter();
-
-  if (pathname.includes("/dashboard")) {
-    return <DashboardLayout>{children}</DashboardLayout>;
-  }
-
-  return children;
+const EmptyLayout = ({ children }) => {
+  return <>{children}</>;
 };
 
 function MyApp({ Component, pageProps }) {
+  const Layout = Component.Layout || EmptyLayout;
+
   return (
     <Provider store={store}>
       <ThemeProvider
