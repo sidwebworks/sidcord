@@ -10,10 +10,15 @@ import 'module-alias/register'
 //! THIS IS REQUIRED FOR MODULE ALIASES TO WORK.
 
 import http from 'http'
-import { Server } from 'socket.io'
+import { Server, Socket } from 'socket.io'
 import './config'
 import logger from '@config/logger'
+import connect from '@config/loaders/mongoose.loader'
+
+connect()
+
 import app from './api/app'
+import { chatController } from '@controllers/chat.controller'
 
 const PORT = process.env.PORT || 3000
 
@@ -30,12 +35,11 @@ server.listen(PORT, () => {
     logger.debug(`Server started at ${PORT}`)
 })
 
-io.on('connection', (socket) => {
-    console.log('New client' + socket.id)
+const intializeSockets = (socket: Socket) => {
+    chatController(socket, io)
+}
 
-    socket.emit("message", "Hello")
-})
-
+io.on('connection', intializeSockets)
 
 process.on('unhandledRejection', (err: Error) => {
     console.log(

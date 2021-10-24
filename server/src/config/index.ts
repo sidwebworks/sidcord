@@ -1,4 +1,3 @@
-import { join } from 'path'
 import { config } from 'dotenv'
 
 import logger from './logger'

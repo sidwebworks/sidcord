@@ -16,6 +16,7 @@ import Modal from "../ui/Modal";
 import * as Avatar from "@radix-ui/react-avatar";
 import Button from "../ui/buttons/Button";
 import { LogOut, Settings } from "react-feather";
+import { signOut } from "next-auth/client";
 
 const sidebar_items = [
   {
@@ -83,11 +84,19 @@ export const Sidebar = () => {
           <p className="text-gray-100">We will miss you, Come back soon!</p>
         </div>
         <div className="flex items-center justify-between mt-4">
-          <Button className="text-gray-50" onClick={() => setShowModal(false)}>
+          <Button
+            className="text-base text-blue-500"
+            onClick={() => setShowModal(false)}
+          >
             Go back
           </Button>
 
-          <Button className="text-gray-50 btn-md">Log out</Button>
+          <Button
+            className="text-base bg-red-500 text-gray-50 btn-md"
+            onClick={() => signOut({ redirect: true, callbackUrl: "/" })}
+          >
+            Log out
+          </Button>
         </div>
       </Modal>
 

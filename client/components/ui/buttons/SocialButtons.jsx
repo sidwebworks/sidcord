@@ -1,48 +1,14 @@
-import { InformationCircleIcon } from "@heroicons/react/solid";
+import { clsx } from "lib/utils/clsx";
 
-export const AuthForm = () => {
-  return (
-    <div className="flex w-full px-4 bg-white md:max-w-md lg:max-w-full md:mx-auto items-left justify-left">
-      <div className="w-full lg:h-100">
-        <h1 className="my-2 mt-12 text-3xl font-bold tracking-tighter text-black-700 sm:text-[2.5rem] title-font">
-          Sign in
-        </h1>
-
-        <p className="pb-8 ">
-          No need to create an account <br /> We'll do that automatically.
-        </p>
-
-        <div className="flex justify-center">
-          <GoogleAuthButton />
-        </div>
-        <p className="my-6 text-center">
-          or if you're a <strong>Developer</strong>
-        </p>
-        <div className="flex justify-enter">
-          <GithubAuthButton />
-        </div>
-        <div className="flex items-center gap-2 my-1 mt-12">
-          <InformationCircleIcon className="w-6 h-6" />
-          <h1 className="text-lg font-semibold tracking-tighter text-black-700 sm:text-xl title-font">
-            We value your privacy.
-          </h1>
-        </div>
-        <p className="text-[0.9rem]  text-gray-800">
-          That's why this project is{" "}
-          <span className="font-semibold">open-source</span> on Github. Feel
-          free to have a look at the source code.
-        </p>
-      </div>
-    </div>
-  );
-};
-
-const GoogleAuthButton = (props) => {
+export const GoogleAuthButton = ({ className, ...props }) => {
   return (
     <button
       {...props}
       type="button"
-      className="inline-flex w-full px-4 py-3 font-semibold text-black transition duration-500 ease-in-out transform bg-white border rounded-lg border-blueGray-300 hover:bg-black hover:text-white focus:bg-blueGray-100 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2"
+      className={clsx([
+        "inline-flex w-full px-4 py-3 font-semibold text-black transition duration-300 ease-in-out bg-white border rounded-lg border-blueGray-300 active:scale-105 focus:outline-none focus:ring-2 ",
+        className,
+      ])}
     >
       <div className="flex items-center justify-center mx-auto">
         <svg
@@ -83,14 +49,14 @@ const GoogleAuthButton = (props) => {
   );
 };
 
-const GithubAuthButton = (props) => {
+export const GithubAuthButton = (props) => {
   return (
     <button
       {...props}
       type="button"
-      className="inline-flex w-full px-4 py-3 font-semibold text-white transition duration-500 ease-in-out transform bg-black border rounded-lg hover:bg-white group border-blueGray-300 hover:text-black focus:bg-blueGray-100 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2"
+      className="inline-flex w-full px-4 py-3 font-semibold transition duration-300 ease-in-out bg-black rounded-lg active:scale-105 group focus:outline-none focus:ring-2 ring-offset-current"
     >
-      <div className="flex items-center justify-center mx-auto text-white group-hover:text-black">
+      <div className="flex items-center justify-center mx-auto text-white">
         <svg
           className="w-6 h-6 fill-current"
           viewBox="0 0 256 250"

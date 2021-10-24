@@ -3,6 +3,7 @@ import Markdown from "markdown-to-jsx";
 import CodeBlock from "./CodeBlock";
 import relativeTime from "dayjs/plugin/relativeTime";
 import dayjs from "dayjs";
+import ImageBlock from "./ImageBlock";
 
 dayjs.extend(relativeTime);
 
@@ -16,8 +17,8 @@ export const Message = (props) => {
 
   const userName = index % 3 === 0 ? "Sidharth" : "Chattan";
 
-  const time = dayjs(date).format('h:m a') 
-  
+  const time = dayjs(date).format("h:m a");
+
   return (
     <div
       className={clsx([
@@ -33,7 +34,7 @@ export const Message = (props) => {
       />
       <div
         className={clsx([
-          "mx-2 max-w-prose xl:max-w-3xl  flex-col flex-grow",
+          "mx-2 max-w-prose xl:max-w-3xl  flex-col",
           sender === userName && "text-right",
         ])}
       >
@@ -56,12 +57,9 @@ export const Message = (props) => {
                 a: {
                   component: Debug,
                 },
-                feImage: {
-                  component: Debug,
-                },
 
-                image: {
-                  component: Debug,
+                img: {
+                  component: ImageBlock,
                 },
               },
             }}

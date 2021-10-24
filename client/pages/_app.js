@@ -15,20 +15,15 @@ function MyApp({ Component, pageProps }) {
     io.on("connect", () => {
       console.log("connected");
     });
-
+    
     io.on("message", (m) => {
       console.log(m);
     });
-    
   }, [io]);
 
   return (
     <Provider store={store}>
-      <ThemeProvider
-        defaultTheme="dark"
-        attribute="class"
-        enableColorScheme={false}
-      >
+      <ThemeProvider defaultTheme="dark" enableColorScheme={false}>
         <Layout>
           <Component {...pageProps} />
         </Layout>

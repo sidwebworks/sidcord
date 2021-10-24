@@ -1,6 +1,6 @@
 import { EmojiHappyIcon } from "@heroicons/react/solid";
-import "emoji-mart-virtualized/css/emoji-mart.css";
-import Picker from "emoji-mart-virtualized/dist/components/picker/picker";
+import data from "emoji-mart-virtualized/data/twitter.json";
+import { NimblePicker } from "emoji-mart-virtualized";
 import { useCallback, useContext, useMemo, useRef, useState } from "react";
 import { Send } from "react-feather";
 import { useDispatch } from "react-redux";
@@ -73,13 +73,12 @@ const EmojiPicker = () => {
 
   const computedChild = useMemo(() => {
     return (
-      <div
-        ref={emojiRef}
-        style={{ position: "absolute", bottom: "110%", right: "5%" }}
-      >
-        <Picker
+      <div style={{ position: "absolute", bottom: "110%", right: "5%" }}>
+        <NimblePicker
           showPreview={false}
           title=""
+          set="twitter"
+          data={data}
           showSkinTones={false}
           theme="dark"
         />
@@ -89,16 +88,20 @@ const EmojiPicker = () => {
 
   return (
     <>
-      {showPicker && computedChild}
-
       <button
-        onClick={() => setShowPicker((p) => !p)}
         className={clsx([
           "flex items-center justify-center flex-shrink mx-4 rounded",
           showPicker ? "text-primary" : " hover:text-primary text-neutral-300",
         ])}
       >
-        <EmojiHappyIcon className="w-6 h-6 p-0 fill-current" />
+        <div ref={emojiRef}>
+          {showPicker && computedChild}
+
+          <EmojiHappyIcon
+            onClick={() => setShowPicker((p) => !p)}
+            className="w-6 h-6 p-0 fill-current"
+          />
+        </div>
       </button>
     </>
   );

@@ -1,13 +1,12 @@
 import express, { RequestHandler } from 'express'
 import init from '../config/loaders/express.loader'
-import exampleRouter from './routes/example.routes'
-
+import userRouter from './routes/user.routes'
 import ErrorMiddleware from './middlewares/error.middleware'
 import createError from 'http-errors'
 
 const app = init(express())
 
-app.use('/', exampleRouter)
+app.use('/users', userRouter)
 
 /**
  * Capture unhandled Routes
