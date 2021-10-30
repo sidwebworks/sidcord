@@ -20,7 +20,7 @@ export const AuthForm = () => {
             onClick={() =>
               signin("google", {
                 redirect: true,
-                callbackUrl: "http://localhost:3000/dashboard/",
+                callbackUrl: `${process.env.NEXT_PUBLIC_CLIENT_URL}/dashboard`,
               })
             }
           />
@@ -33,7 +33,7 @@ export const AuthForm = () => {
             onClick={() =>
               signin("github", {
                 redirect: true,
-                callbackUrl: "http://localhost:3000/dashboard/",
+                callbackUrl: `${process.env.NEXT_PUBLIC_CLIENT_URL}/dashboard/`,
               })
             }
           />

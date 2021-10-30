@@ -32,9 +32,12 @@ export default NextAuth({
   callbacks: {
     async signIn(user, account, meta) {
       if (account.provider === "github") {
-        let res = await axios.post("http://localhost:4000/users/github", {
-          accessToken: account.accessToken,
-        });
+        let res = await axios.post(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/users/github`,
+          {
+            accessToken: account.accessToken,
+          }
+        );
 
         res = res.data.result;
 
@@ -49,9 +52,12 @@ export default NextAuth({
         return true;
       }
       if (account.provider === "google") {
-        let res = await axios.post("http://localhost:4000/users/google", {
-          accessToken: account.accessToken,
-        });
+        let res = await axios.post(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/users/google`,
+          {
+            accessToken: account.accessToken,
+          }
+        );
 
         res = res.data.result;
 
@@ -87,7 +93,7 @@ export default NextAuth({
     async session(session, token) {
       try {
         let res = await axios.get(
-          `http://localhost:4000/users/${token.user.id}`,
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/users/${token.user.id}`,
           {
             headers: {
               authorization: `Bearer ${token.access_token}`,
