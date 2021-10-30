@@ -4,6 +4,8 @@ import CodeBlock from "./CodeBlock";
 import relativeTime from "dayjs/plugin/relativeTime";
 import dayjs from "dayjs";
 import ImageBlock from "./ImageBlock";
+import Image from "next/image"
+import { useSelector } from "react-redux";
 
 dayjs.extend(relativeTime);
 
@@ -14,39 +16,39 @@ const Debug = (props) => {
 
 export const Message = (props) => {
   const { sender, body, date, index } = props;
+  const { user } = useSelector((state) => state.user);
 
-  const userName = index % 3 === 0 ? "Sidharth" : "Chattan";
-
-  const time = dayjs(date).format("h:m a");
+  const time = dayjs(date).format("h:mm a");
 
   return (
     <div
       className={clsx([
         "flex px-4 py-3 w-full",
-        sender === userName && "flex-row-reverse ",
+        sender.name === user.name && "flex-row-reverse ",
       ])}
     >
-      <img
-        src="http://daisyui.com/tailwind-css-component-profile-1@94w.png"
-        width={40}
-        height={40}
-        className="flex-shrink-0 object-cover w-12 h-12 bg-gray-300 rounded-full avatar"
+      <Image
+        src={sender.avatar}
+        referrerPolicy="no-referrer"
+        width={34}
+        height={34}
+        layout="fixed"
+        className="flex-shrink-0 object-cover w-10 h-10 bg-gray-300 rounded-full avatar"
       />
       <div
         className={clsx([
           "mx-2 max-w-prose xl:max-w-3xl  flex-col",
-          sender === userName && "text-right",
+          sender.name === user.name && "text-right",
         ])}
       >
         <div className="-mt-1">
-          <span className="text-sm font-semibold">{sender}</span>
+          <span className="text-sm font-semibold">{sender.name}</span>
           <span className="ml-1 text-xs text-gray-500">{time}</span>
         </div>
         <div className="py-2">
           <Markdown
             options={{
               disableParsingRawHTML: true,
-
               overrides: {
                 code: {
                   component: CodeBlock,

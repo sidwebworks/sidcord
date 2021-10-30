@@ -6,40 +6,43 @@ process.on('uncaughtException', (err) => {
 })
 
 //! THIS IS REQUIRED FOR MODULE ALIASES TO WORK.
+import './config'
 import 'module-alias/register'
 //! THIS IS REQUIRED FOR MODULE ALIASES TO WORK.
 
+import connectMongo from '@config/loaders/mongoose.loader'
+import logger from '@config/logger'
+import { chatController } from '@controllers/chat.controller'
 import http from 'http'
 import { Server, Socket } from 'socket.io'
-import './config'
-import logger from '@config/logger'
-import connect from '@config/loaders/mongoose.loader'
-
-connect()
-
 import app from './api/app'
-import { chatController } from '@controllers/chat.controller'
 
 const PORT = process.env.PORT || 3000
 
+connectMongo()
+
 const server = http.createServer(app)
 
-const io = new Server(server, {
-    cors: {
-        origin: 'http://localhost:3000',
-        methods: ['GET', 'POST'],
-    },
-})
+const startServer = () => {
+    const io = new Server(server, {
+        cors: {
+            origin: 'http://localhost:3000',
+            methods: ['GET', 'POST'],
+        },
+    })
 
-server.listen(PORT, () => {
-    logger.debug(`Server started at ${PORT}`)
-})
+    server.listen(PORT, () => {
+        logger.debug(`Server started at ${PORT}`)
+    })
 
-const intializeSockets = (socket: Socket) => {
-    chatController(socket, io)
+    const intializeSockets = (socket: Socket) => {
+        chatController(socket, io)
+    }
+
+    io.on('connection', intializeSockets)
 }
 
-io.on('connection', intializeSockets)
+startServer()
 
 process.on('unhandledRejection', (err: Error) => {
     console.log(

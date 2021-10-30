@@ -1,22 +1,20 @@
-import { Transition } from "@headlessui/react";
 import {
-  CodeIcon,
-  CogIcon,
   ArchiveIcon,
   ChatAlt2Icon,
-  LogoutIcon,
-  MenuIcon,
+  CodeIcon,
   HomeIcon,
 } from "@heroicons/react/solid";
-import { clsx } from "../../lib/utils/clsx";
+import * as Avatar from "@radix-ui/react-avatar";
+import { signOut } from "next-auth/client";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Fragment, useEffect, useState } from "react";
-import Modal from "../ui/Modal";
-import * as Avatar from "@radix-ui/react-avatar";
-import Button from "../ui/buttons/Button";
+import { useEffect, useState } from "react";
 import { LogOut, Settings } from "react-feather";
-import { signOut } from "next-auth/client";
+import { useSelector } from "react-redux";
+import { clsx } from "../../lib/utils/clsx";
+import Button from "../ui/buttons/Button";
+import Modal from "../ui/Modal";
+import Image from "next/image";
 
 const sidebar_items = [
   {
@@ -53,10 +51,11 @@ const sidebar_items = [
 
 export const Sidebar = () => {
   const router = useRouter();
-
   const [active, setActive] = useState(0);
   const [showModal, setShowModal] = useState(false);
+  const { user } = useSelector((state) => state.user);
 
+  console.log("user: ", user);
   useEffect(() => {
     /**
      * ? Function to: Update active sidebar item based on route pathname.
@@ -145,11 +144,10 @@ export const Sidebar = () => {
           <div className="flex items-center p-2 mx-auto mt-2 mb-2 rounded-full ">
             <Avatar.Root className="w-11 h-11 avatar ">
               <Avatar.Image
+                referrerPolicy="no-referrer"
                 className="overflow-hidden rounded-full"
-                alt="Colm Tuite"
-                src={
-                  "http://daisyui.com/tailwind-css-component-profile-1@94w.png"
-                }
+                alt={user.name}
+                src={user.avatar}
               />
               <Avatar.Fallback delayMs={600}>CT</Avatar.Fallback>
             </Avatar.Root>

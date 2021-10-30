@@ -1,13 +1,26 @@
+import { useEffect, useRef } from "react";
 import { Message } from "./message";
 
 export const MessageList = (props) => {
   const { messages } = props;
+  const scrollRef = useRef(null);
+  
+  useEffect(() => {
+    if (scrollRef) {
+      scrollRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "start",
+      });
+    }
+  }, [messages]);
 
   return (
     <div className="flex flex-col flex-grow py-3 overflow-auto bg-neutral-700">
       {messages.map((msg, i) => (
-        <Message {...msg} index={i} />
+        <Message {...msg} index={i} key={msg.id} />
       ))}
+      <span ref={scrollRef} />
     </div>
   );
 };

@@ -1,6 +1,5 @@
 import { checkAuth } from '@middlewares/auth.middleware'
 import { Router } from 'express'
-
 import {
     githubAuth,
     googleAuth,

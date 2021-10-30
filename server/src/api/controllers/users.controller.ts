@@ -1,108 +1,132 @@
-import createError from 'http-errors'
-import axios, { AxiosResponse } from 'axios'
 import catchAsync from '@helpers/catchAsync'
-import UsersService from '@services/users.service'
-import { NextFunction, Request, Response } from 'express'
 import UserModel from '@models/user.model'
+import UsersService from '@services/users.service'
+import axios, { AxiosResponse } from 'axios'
+import createError from 'http-errors'
+
+const GOOGLE_API_URL = 'https://www.googleapis.com/oauth2/v1/'
+const GITHUB_API_URL = 'https://api.github.com/'
 
 const ServiceInstance = new UsersService({ User: UserModel })
 
-export const googleAuth = catchAsync(
-    async (req: Request, res: Response, next: NextFunction) => {
-        console.log('req: ', req)
+export const getUserById = catchAsync(async (req, res, next) => {
+    const { id } = req.params
 
-        // if (!name) {
-        //     return next(
-        //         createError(401, 'Please Provide a name in POST request', {
-        //             expose: true,
-        //         })
-        //     )
-        // }
+    const alreadyExists = await ServiceInstance.find({
+        _id: id,
+    })
 
-        res.status(200).json('token hai yeh')
+    if (!alreadyExists) {
+        return next(
+            createError(404, 'User not found', {
+                expose: true,
+            })
+        )
     }
-)
 
-export const getUserById = catchAsync(
-    async (req: Request, res: Response, next: NextFunction) => {
-        const { id } = req.params
+    const access_token = ServiceInstance.signToken(alreadyExists)
 
-        const alreadyExists = await ServiceInstance.find({
-            _id: id,
-        })
+    return res.status(200).json({
+        status: 'success',
+        message: 'User Found',
+        result: {
+            user: alreadyExists,
+            access_token,
+        },
+    })
+})
 
-        
+export const githubAuth = catchAsync(async (req, res, _next) => {
 
-        if (!alreadyExists) {
-            return next(
-                createError(404, 'User not found', {
-                    expose: true,
-                })
-            )
+    const fetchGithubUser: AxiosResponse<any> = await axios.get(
+        `${GITHUB_API_URL}user`,
+        {
+            headers: { Authorization: `token ${req.body.accessToken}` },
         }
+    )
 
+    const { login, avatar_url, id, name, email } = fetchGithubUser.data
+
+    const alreadyExists = await ServiceInstance.find({
+        provider: { name: 'github', id: id.toString() },
+    })
+
+    if (alreadyExists) {
         const access_token = ServiceInstance.signToken(alreadyExists)
 
         return res.status(200).json({
             status: 'success',
-            message: 'User Found',
+            message: 'User authenticated',
             result: {
                 user: alreadyExists,
                 access_token,
             },
         })
     }
-)
 
-export const githubAuth = catchAsync(
-    async (req: Request, res: Response, _next: NextFunction): Promise<any> => {
-        const fetchGithubUser: AxiosResponse<{
-            login: string
-            id: number | string
-            avatar_url: string
-            name: string
-            email: string | null
-        }> = await axios.get('https://api.github.com/user', {
-            headers: { Authorization: `token ${req.body.accessToken}` },
-        })
+    const { user, access_token } = await ServiceInstance.create({
+        username: login,
+        avatar: avatar_url,
+        email: email,
+        name: name,
+        provider: {
+            name: 'github',
+            id: id,
+        },
+    })
 
-        const { login, avatar_url, id, name, email } = fetchGithubUser.data
+    return res.status(200).json({
+        status: 'success',
+        message: 'New user created and Authenticated',
+        result: {
+            user,
+            access_token,
+        },
+    })
+})
 
-        const alreadyExists = await ServiceInstance.find({
-            provider: { name: 'github', id: id.toString() },
-        })
+export const googleAuth = catchAsync(async (req, res, _next) => {
 
-        if (alreadyExists) {
-            const access_token = ServiceInstance.signToken(alreadyExists)
+    const fetchGoogleUser: AxiosResponse<any> = await axios.get(
+        `${GOOGLE_API_URL}userinfo?alt=json&access_token=${req.body.accessToken}`
+    )
 
-            return res.status(200).json({
-                status: 'success',
-                message: 'User authenticated',
-                result: {
-                    user: alreadyExists,
-                    access_token,
-                },
-            })
-        }
+    const { id, email, name, picture } = fetchGoogleUser.data
 
-        const { user, access_token } = await ServiceInstance.create({
-            username: login,
-            avatar: avatar_url,
-            email: email,
-            name: name,
-            provider: {
-                name: 'github',
-                id: id,
-            },
-        })
+    const alreadyExists = await ServiceInstance.find({
+        provider: { name: 'google', id: id.toString() },
+    })
 
-        res.status(200).json({
+    if (alreadyExists) {
+        const access_token = ServiceInstance.signToken(alreadyExists)
+
+        return res.status(200).json({
             status: 'success',
-            message: 'New user created and Authenticated',
+            message: 'User authenticated',
             result: {
-                user,
+                user: alreadyExists,
                 access_token,
             },
         })
     }
-)
+
+    const { user, access_token } = await ServiceInstance.create({
+        username: name,
+        avatar: picture,
+        email: email,
+        name: name,
+        provider: {
+            name: 'google',
+            id: id,
+        },
+    })
+
+    return res.status(200).json({
+        status: 'success',
+        message: 'New user created and Authenticated',
+        result: {
+            user,
+            access_token,
+        },
+    })
+})

@@ -17,6 +17,12 @@ export const AuthForm = () => {
 
         <div className="flex justify-center">
           <GoogleAuthButton
+            onClick={() =>
+              signin("google", {
+                redirect: true,
+                callbackUrl: "http://localhost:3000/dashboard/",
+              })
+            }
           />
         </div>
         <p className="my-6 text-center">
@@ -25,7 +31,10 @@ export const AuthForm = () => {
         <div className="flex justify-enter">
           <GithubAuthButton
             onClick={() =>
-              signin("github", { redirect: true, callbackUrl: "http://localhost:3000/dashboard" })
+              signin("github", {
+                redirect: true,
+                callbackUrl: "http://localhost:3000/dashboard/",
+              })
             }
           />
         </div>

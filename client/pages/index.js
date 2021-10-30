@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import Link from "next/link";
 import { AuthForm } from "../components/forms/AuthForm";
 import { SlideOver } from "../components/ui/SlideOver";
 import HomeLayout from "../components/layouts/HomeLayout";
@@ -10,20 +10,13 @@ import {
   ScaleIcon,
 } from "@heroicons/react/outline";
 import Button from "components/ui/buttons/Button";
-import { useSession } from "next-auth/client";
+import { useUser } from "lib/hooks/use-user";
+import { useState } from "react";
 
 const Home = () => {
   const [isOpen, setIsOpen] = useState(false);
-
-  const [session, isLoading] = useSession();
-
+  const { user } = useUser();
   const router = useRouter();
-
-  useEffect(() => {
-    if (session?.user) {
-      router.push("/dashboard");
-    }
-  }, [router, isLoading, session]);
 
   const features = [
     {
@@ -51,6 +44,7 @@ const Home = () => {
       icon: AnnotationIcon,
     },
   ];
+
   return (
     <HomeLayout>
       <SlideOver isOpen={isOpen} setIsOpen={setIsOpen} width="max-w-md">
@@ -73,12 +67,20 @@ const Home = () => {
             </p>
           </div>
           <div className="flex gap-6 justify-left lg:justify-center">
-            <Button
-              onClick={() => setIsOpen(true)}
-              className="flex items-center px-6 py-2 mt-auto font-semibold text-white transition duration-500 ease-in-out transform rounded-lg bg-primary focus:shadow-outline focus:outline-none focus:ring-2 "
-            >
-              Go to App
-            </Button>
+            {user ? (
+              <Link href="/dashboard">
+                <a className="items-center block px-6 py-3 mt-auto font-semibold text-white transition duration-500 ease-in-out transform rounded-lg bg-primary focus:outline-none focus:ring-2 focus:ring-primary ">
+                  Go to App
+                </a>
+              </Link>
+            ) : (
+              <Button
+                onClick={() => setIsOpen(true)}
+                className="flex items-center px-6 mt-auto font-semibold text-white transition duration-500 ease-in-out transform rounded-lg bg-primary focus:outline-none focus:ring-2 focus:ring-primary "
+              >
+                Sign In
+              </Button>
+            )}
             <Button className="flex items-center px-6 py-2 mt-auto mr-3 font-medium transition duration-500 ease-in-out transform rounded-lg text-primary ring-primary focus:outline-none focus:ring-2">
               Why this project?
             </Button>

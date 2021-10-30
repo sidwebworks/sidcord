@@ -1,16 +1,9 @@
-import { NextFunction, Request, Response } from 'express'
 import { verify } from '@helpers/jwt.helper'
+import { RequestHandler } from 'express'
 
-export const checkAuth = async (
-    req: Request,
-    _res: Response,
-    next: NextFunction
-) => {
+export const checkAuth: RequestHandler = async (req, _res, next) => {
     try {
-        // throws an error if not valid
-        console.log(req.headers);
         let token = req.headers.authorization?.split(' ')[1]
-        console.log('token: ', token);
 
         await verify(token)
 

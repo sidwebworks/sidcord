@@ -12,17 +12,19 @@ export default NextAuth({
   },
 
   session: {
-    jwt: true,
-
-    maxAge: 29 * 24 * 60 * 60, // 30 days
-    updateAge: 24 * 60 * 60, // 24 hours
+    maxAge: 29 * 24 * 60 * 60, // 29 days
+    updateAge: 5 * 60 * 60,
   },
   theme: "dark",
 
   providers: [
     Providers.GitHub({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
+      clientId: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    }),
+    Providers.Google({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
     // ...add more providers here
   ],
@@ -46,7 +48,23 @@ export default NextAuth({
 
         return true;
       }
+      if (account.provider === "google") {
+        let res = await axios.post("http://localhost:4000/users/google", {
+          accessToken: account.accessToken,
+        });
 
+        res = res.data.result;
+
+        user.access_token = res.access_token;
+        user.id = res.user._id;
+        user.provider = res.user.provider;
+        user.avatar = res.user.avatar;
+        user.email = res.user.email;
+        user.name = res.user.name;
+        user.username = res.user.username;
+
+        return true;
+      }
       return false;
     },
     async jwt(token, user) {
@@ -67,25 +85,29 @@ export default NextAuth({
       return token;
     },
     async session(session, token) {
-      let res = await axios.get(
-        `http://localhost:4000/users/${token.user.id}`,
-        {
-          headers: {
-            authorization: `Bearer ${token.access_token}`,
-          },
-          withCredentials: true,
-        }
-      );
+      try {
+        let res = await axios.get(
+          `http://localhost:4000/users/${token.user.id}`,
+          {
+            headers: {
+              authorization: `Bearer ${token.access_token}`,
+            },
+          }
+        );
 
-      res = res.data.result;
+        res = res.data.result;
 
-      session.tokens = {
-        access_token: res.access_token,
-      };
+        session.tokens = {
+          access_token: res.access_token,
+        };
 
-      session.user = res.user;
+        session.user = res.user;
 
-      return session;
+        return session;
+      } catch (error) {
+        console.log("error: ", error);
+        return false;
+      }
     },
   },
 });

@@ -1,22 +1,5 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Popover, Transition } from "@headlessui/react";
-import {
-  BookmarkAltIcon,
-  CalendarIcon,
-  ChartBarIcon,
-  CursorClickIcon,
-  MenuIcon,
-  PhoneIcon,
-  PlayIcon,
-  RefreshIcon,
-  ShieldCheckIcon,
-  SupportIcon,
-  ViewGridIcon,
-  XIcon,
-} from "@heroicons/react/outline";
-import { ChevronDownIcon } from "@heroicons/react/solid";
-import { clsx } from "lib/utils/clsx";
-import { Fragment } from "react";
+import { Popover } from "@headlessui/react";
 
 const HomeLayout = ({ children }) => {
   return (
@@ -61,7 +44,7 @@ const Navigation = () => {
               href="#"
               className="inline-flex items-center justify-center px-4 py-2 ml-8 text-base font-medium text-white border border-transparent rounded-md shadow-sm bg-primary whitespace-nowrap "
             >
-              Sign Up
+              Sign In
             </a>
           </div>
         </div>
@@ -74,7 +57,7 @@ const Footer = () => {
   return (
     <div className="items-center bg-neutral-700">
       <footer className="w-full px-8 rounded-b-lg bg-neutral-700">
-        <div className="container inline-flex flex-col flex-wrap items-center px-5 py-6 mx-auto sm:flex-row">
+        <div className="container flex items-center px-5 py-6 mx-auto ">
           <h2 className="mx-auto text-xs font-medium tracking-widest capitalize text-primary title-font">
             © Sidwebworks | All rights reserved
           </h2>

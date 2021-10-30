@@ -1,5 +1,4 @@
 import UserModel from '@models/user.model'
-import { HttpError } from 'http-errors'
 import type { User } from 'typings/types/auth'
 import { sign, verify } from '@helpers/jwt.helper'
 
@@ -20,7 +19,7 @@ class UsersService {
         })
     }
 
-    async create(oauth_user: User) {
+    public async create(oauth_user: User) {
         const user = new this.User({
             avatar: oauth_user.avatar,
             email: oauth_user.email,
@@ -43,7 +42,7 @@ class UsersService {
         return { user: newUser, access_token }
     }
 
-    async find(query: any) {
+    public async find(query: any) {
         const results = await this.User.find(query).limit(1)
 
         if (results.length < 1) {
@@ -57,7 +56,7 @@ class UsersService {
         return `Hello there ${name}!`
     }
 
-    async delete(name: string) {
+    public async delete(name: string) {
         return `Hello there ${name}!`
     }
 }

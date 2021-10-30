@@ -1,5 +1,5 @@
 import { ChatBox } from "@components/chatbox";
-import ChatLayout from "@components/layouts/ChatLayout";
+import DashboardLayout from "components/layouts/DashboardLayout";
 
 export default function ChatPage() {
   return (
@@ -9,4 +9,4 @@ export default function ChatPage() {
   );
 }
 
-ChatPage.Layout = ChatLayout;
+ChatPage.Layout = DashboardLayout;

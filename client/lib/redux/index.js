@@ -1,11 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import chatReduer from "./reducers/chatReducer";
+import chatReducer from "./reducers/chatReducer";
 
-const store = configureStore({
-  devTools: process.env.NODE_ENV !== "production",
-  reducer: {
-    chat: chatReduer,
-  },
-});
+import { createWrapper } from "next-redux-wrapper";
+import userReducer from "./reducers/userReducer";
 
-export default store;
+export const makeStore = () => {
+  return configureStore({
+    reducer: { chat: chatReducer, user: userReducer },
+    devTools: true,
+  });
+};
+
+export const wrapper = createWrapper(makeStore);

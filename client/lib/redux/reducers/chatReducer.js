@@ -1,5 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { SEND_MESSAGE } from "../actions";
+import { CHAT } from "../actions";
+import { HYDRATE } from "next-redux-wrapper";
 
 const intialState = {
   messages: [],
@@ -8,8 +9,14 @@ const intialState = {
 };
 
 const chatReduer = createReducer(intialState, (builder) => {
-  builder.addCase(SEND_MESSAGE, (state, action) => {
+  builder.addCase(CHAT.SEND_MESSAGE, (state, action) => {
     state.messages.push(action.payload);
+  });
+  builder.addCase(HYDRATE, (state, action) => {
+    state = {
+      ...state,
+      ...action.payload.chat,
+    };
   });
 });
 
