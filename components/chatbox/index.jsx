@@ -7,8 +7,6 @@ import { ChatInput } from "./Input";
 import { MessageList } from "./MessagesList";
 
 export const ChatBox = () => {
-  const { messages } = useSelector((state) => state.chat);
-
   return (
     <>
       <ChatSidebar />
@@ -17,7 +15,7 @@ export const ChatBox = () => {
           title="My awesome channel"
           description="lemme think about it..."
         />
-        <MessageList messages={messages} />
+        <MessageList />
         <ChatInput />
       </div>
     </>

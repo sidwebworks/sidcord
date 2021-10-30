@@ -1,5 +1,5 @@
 import { Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import React, { Fragment } from "react";
 import { Inbox, Compass } from "react-feather";
 
 export const ChatSidebar = () => {

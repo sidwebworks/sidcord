@@ -1,10 +1,12 @@
 import { useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
 import { Message } from "./message";
 
-export const MessageList = (props) => {
-  const { messages } = props;
+export const MessageList = () => {
+  const { messages } = useSelector((state) => state.chat);
+
   const scrollRef = useRef(null);
-  
+
   useEffect(() => {
     if (scrollRef) {
       scrollRef.current.scrollIntoView({
