@@ -55,7 +55,7 @@ export const Sidebar = () => {
   const [showModal, setShowModal] = useState(false);
   const { user } = useSelector((state) => state.user);
 
-  console.log("user: ", user);
+  
   useEffect(() => {
     /**
      * ? Function to: Update active sidebar item based on route pathname.

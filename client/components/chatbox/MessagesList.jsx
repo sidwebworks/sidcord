@@ -10,7 +10,7 @@ export const MessageList = (props) => {
       scrollRef.current.scrollIntoView({
         behavior: "smooth",
         block: "nearest",
-        inline: "start",
+        inline: "end",
       });
     }
   }, [messages]);

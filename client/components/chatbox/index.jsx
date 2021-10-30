@@ -34,10 +34,12 @@ const ChatHeader = ({ title, description }) => {
           <h1 className="text-sm font-bold leading-none">{title}</h1>
           <span className="text-xs leading-none">{description}</span>
         </div>
-        <Info
-          onClick={() => setIsOpen((p) => !p)}
-          className="ml-auto stroke-current"
-        />
+        <button className="ml-auto text-gray-400 ">
+          <Info
+            onClick={() => setIsOpen((p) => !p)}
+            className="stroke-current"
+          />
+        </button>
       </div>
       <SlideOver
         setIsOpen={setIsOpen}

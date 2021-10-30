@@ -1,11 +1,13 @@
 import { clsx } from "../../../lib/utils/clsx";
+import { Fragment } from "react";
 import Markdown from "markdown-to-jsx";
 import CodeBlock from "./CodeBlock";
 import relativeTime from "dayjs/plugin/relativeTime";
 import dayjs from "dayjs";
 import ImageBlock from "./ImageBlock";
-import Image from "next/image"
+import Image from "next/image";
 import { useSelector } from "react-redux";
+import { Transition } from "@headlessui/react";
 
 dayjs.extend(relativeTime);
 
@@ -21,58 +23,70 @@ export const Message = (props) => {
   const time = dayjs(date).format("h:mm a");
 
   return (
-    <div
-      className={clsx([
-        "flex px-4 py-3 w-full",
-        sender.name === user.name && "flex-row-reverse ",
-      ])}
+    <Transition
+      as={Fragment}
+      show={true}
+      appear={true}
+      enter="transition-opacity duration-300"
+      enterFrom="opacity-0"
+      enterTo="opacity-100"
+      leave="transition-opacity duration-150"
+      leaveFrom="opacity-100"
+      leaveTo="opacity-0"
     >
-      <Image
-        src={sender.avatar}
-        referrerPolicy="no-referrer"
-        width={34}
-        height={34}
-        layout="fixed"
-        className="flex-shrink-0 object-cover w-10 h-10 bg-gray-300 rounded-full avatar"
-      />
       <div
         className={clsx([
-          "mx-2 max-w-prose xl:max-w-3xl  flex-col",
-          sender.name === user.name && "text-right",
+          "flex px-4 py-3 w-full",
+          sender.name === user.name && "flex-row-reverse ",
         ])}
       >
-        <div className="-mt-1">
-          <span className="text-sm font-semibold">{sender.name}</span>
-          <span className="ml-1 text-xs text-gray-500">{time}</span>
-        </div>
-        <div className="py-2">
-          <Markdown
-            options={{
-              disableParsingRawHTML: true,
-              overrides: {
-                code: {
-                  component: CodeBlock,
-                },
-                link: {
-                  component: Debug,
-                },
-                a: {
-                  component: Debug,
-                },
+        <Image
+          src={sender.avatar}
+          referrerPolicy="no-referrer"
+          width={34}
+          height={34}
+          layout="fixed"
+          className="flex-shrink-0 object-cover w-10 h-10 bg-gray-300 rounded-full avatar"
+        />
+        <div
+          className={clsx([
+            "mx-2 max-w-prose xl:max-w-3xl  flex-col",
+            sender.name === user.name && "text-right",
+          ])}
+        >
+          <div className="-mt-1">
+            <span className="text-sm font-semibold">{sender.name}</span>
+            <span className="ml-1 text-xs text-gray-500">{time}</span>
+          </div>
+          <div className="py-2">
+            <Markdown
+              options={{
+                disableParsingRawHTML: true,
+                overrides: {
+                  code: {
+                    component: CodeBlock,
+                  },
+                  link: {
+                    component: Debug,
+                  },
+                  a: {
+                    component: Debug,
+                  },
 
-                img: {
-                  component: ImageBlock,
+                  img: {
+                    component: ImageBlock,
+                  },
                 },
-              },
-            }}
-          >
-            {body}
-          </Markdown>
+              }}
+            >
+              {body}
+            </Markdown>
+          </div>
+          {/* <Reactions /> */}
+          {/* <Replies /> */}
         </div>
-        {/* <Reactions /> */}
-        {/* <Replies /> */}
       </div>
-    </div>
+    </Transition>
   );
 };
 

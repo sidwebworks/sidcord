@@ -18,8 +18,6 @@ export const ChatInput = () => {
   const handleSendMessage = (data, e) => {
     if (data.messageBody.trim() === "") return;
 
-    console.log("data: ", data);
-
     const message = {
       sender: { name: user.username, avatar: user.avatar },
       body: data.messageBody,
@@ -33,7 +31,6 @@ export const ChatInput = () => {
   };
 
   const handleUserKeyPress = (e) => {
-    console.log("e: ", e);
     if (e.key === "Enter" && !e.shiftKey) {
       handleSubmit(handleSendMessage)(e);
     }
@@ -46,7 +43,6 @@ export const ChatInput = () => {
   }, []);
 
   const insertEmoji = (e) => {
-    console.log(e.native);
     const prev = getValues();
     setValue("messageBody", (prev.messageBody += e.native));
   };
