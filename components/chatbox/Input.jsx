@@ -15,7 +15,7 @@ export const ChatInput = () => {
   const { register, handleSubmit, reset, getValues, setValue } = useForm();
   const user = useSelector((state) => state.auth.user);
   const channel = useSelector((state) => state.chat.current_channel);
-
+  console.log("re render");
   const handleSendMessage = (data, e) => {
     if (data.messageBody.trim() === "") return;
 
@@ -54,7 +54,7 @@ export const ChatInput = () => {
     <div className="relative bottom-0 px-4 py-2 bg-neutral-600">
       <form
         onSubmit={handleSubmit(handleSendMessage)}
-        className="flex items-center h-auto rounded-sm"
+        className="flex items-center h-auto gap-4 rounded-sm"
       >
         <textarea
           autoFocus="on"
@@ -69,10 +69,7 @@ export const ChatInput = () => {
           style={{ resize: "vertical" }}
         />
         <EmojiPicker handler={insertEmoji} />
-        <button
-          type="submit"
-          className="flex items-center justify-center flex-shrink rounded hover:text-primary text-neutral-300"
-        >
+        <button className="flex items-center justify-center flex-shrink rounded hover:text-primary text-neutral-300">
           <Send className="w-6 h-6 stroke-current" />
         </button>
       </form>
@@ -112,9 +109,10 @@ const EmojiPicker = ({ handler }) => {
           {showPicker && computedChild}
 
           <button
+            type="button"
             onClick={() => setShowPicker((p) => !p)}
             className={clsx([
-              "flex items-center justify-center focus:ring-2 outline-none focus:ring-indigo-600 flex-shrink mx-4 rounded",
+              "flex items-center justify-center focus:ring-2 outline-none focus:ring-indigo-600 flex-shrink  rounded",
               showPicker
                 ? "text-primary"
                 : " hover:text-primary text-neutral-300",

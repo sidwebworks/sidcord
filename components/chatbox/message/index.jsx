@@ -23,70 +23,60 @@ export const Message = (props) => {
   const time = dayjs(date).format("h:mm a");
 
   return (
-    <Transition
-      as={Fragment}
-      show={true}
-      appear={true}
-      enter="transition-opacity duration-300"
-      enterFrom="opacity-0"
-      enterTo="opacity-100"
-      leave="transition-opacity duration-150"
-      leaveFrom="opacity-100"
-      leaveTo="opacity-0"
+    <div
+      className={clsx([
+        "flex px-4 py-3 w-full",
+        sender.name === user.name && "flex-row-reverse ",
+      ])}
     >
+      <Image
+        src={sender.avatar}
+        referrerPolicy="no-referrer"
+        width={34}
+        height={34}
+        layout="fixed"
+        className="flex-shrink-0 object-cover w-10 h-10 bg-gray-300 rounded-full avatar"
+      />
       <div
         className={clsx([
-          "flex px-4 py-3 w-full",
-          sender.name === user.name && "flex-row-reverse ",
+          "mx-2 max-w-prose xl:max-w-3xl  flex-col",
+          sender.name === user.name && "text-right",
         ])}
       >
-        <Image
-          src={sender.avatar}
-          referrerPolicy="no-referrer"
-          width={34}
-          height={34}
-          layout="fixed"
-          className="flex-shrink-0 object-cover w-10 h-10 bg-gray-300 rounded-full avatar"
-        />
-        <div
-          className={clsx([
-            "mx-2 max-w-prose xl:max-w-3xl  flex-col",
-            sender.name === user.name && "text-right",
-          ])}
-        >
-          <div className="-mt-1">
-            <span className="text-xs font-medium text-gray-300">{sender.name}</span>
-            <span className="ml-1 text-xs text-gray-500">{time}</span>
-          </div>
-          <div className="py-2">
-            <Markdown
-              options={{
-                disableParsingRawHTML: true,
-                overrides: {
-                  code: {
-                    component: CodeBlock,
-                  },
-                  link: {
-                    component: Debug,
-                  },
-                  a: {
-                    component: Debug,
-                  },
-
-                  img: {
-                    component: ImageBlock,
-                  },
-                },
-              }}
-            >
-              {body}
-            </Markdown>
-          </div>
-          {/* <Reactions /> */}
-          {/* <Replies /> */}
+        <div className="-mt-1">
+          <span className="text-xs font-medium text-gray-300">
+            {sender.name}
+          </span>
+          <span className="ml-1 text-xs text-gray-500">{time}</span>
         </div>
+        <div className="py-2">
+          <Markdown
+            options={{
+              disableParsingRawHTML: true,
+              overrides: {
+                code: {
+                  component: CodeBlock,
+                },
+                link: {
+                  component: Debug,
+                },
+                a: {
+                  component: Debug,
+                },
+
+                img: {
+                  component: ImageBlock,
+                },
+              },
+            }}
+          >
+            {body}
+          </Markdown>
+        </div>
+        {/* <Reactions /> */}
+        {/* <Replies /> */}
       </div>
-    </Transition>
+    </div>
   );
 };
 
