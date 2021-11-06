@@ -1,10 +1,8 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import { useRouter } from "next/router";
 
 export default function Modal(props) {
   const { isOpen, setIsOpen, title, children } = props;
-  const router = useRouter();
 
   return (
     <>

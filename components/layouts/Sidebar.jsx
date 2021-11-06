@@ -53,7 +53,7 @@ export const Sidebar = () => {
   const router = useRouter();
   const [active, setActive] = useState(0);
   const [showModal, setShowModal] = useState(false);
-  const { user } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.auth);
 
   
   useEffect(() => {

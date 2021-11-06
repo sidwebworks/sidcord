@@ -3,9 +3,9 @@ import { SpeakerphoneIcon, XIcon } from "@heroicons/react/outline";
 
 const Announcement = () => {
   return (
-    <div className="w-full bg-indigo-600 ">
+    <div className="sticky top-0 left-0 right-0 z-10 w-full bg-indigo-600">
       <div className="px-3 py-3 mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div className="flex flex-wrap items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between ">
           <div className="flex items-center flex-1 w-0">
             <span className="flex p-2 bg-indigo-800 rounded-lg">
               <SpeakerphoneIcon
@@ -14,9 +14,9 @@ const Announcement = () => {
               />
             </span>
             <p className="ml-3 font-medium text-white truncate">
-              <span className="md:hidden">We announced a new product!</span>
+              <span className="md:hidden">I Made this project open-source!</span>
               <span className="hidden md:inline">
-                Big news! We're excited to announce a brand new product.
+                Big news! I'm excited to announce this project as an open-source platform.
               </span>
             </p>
           </div>

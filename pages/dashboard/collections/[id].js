@@ -1,6 +1,6 @@
 import CollectionCard from "components/collection/CollectionCard";
-import DashboardLayout from "../../components/layouts/DashboardLayout";
-
+import DashboardLayout from "../../../components/layouts/DashboardLayout";
+import { PlusCircle } from "react-feather";
 const callouts = [
   {
     name: "Desk and Office",
@@ -27,10 +27,14 @@ const CollectionsPage = () => {
     <>
       <div className="w-full max-h-screen min-h-screen mx-auto overflow-auto sm:px-3 ">
         <div className="max-w-2xl px-4 py-8 mx-auto lg:max-w-none sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-extrabold text-gray-100">
-            Your Collections
-          </h2>
-
+          <div className="flex items-center group gap-x-3">
+            <h2 className="text-3xl font-extrabold text-gray-100 cursor-default">
+              Your Collections
+            </h2>
+            <button>
+              <PlusCircle className="-mb-1 text-gray-500 transition-colors duration-200 ease-in-out stroke-current w-7 h-7 group-hover:text-primary" />
+            </button>
+          </div>
           <div className="mt-6 space-y-12 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-x-6">
             {callouts.map((el) => (
               <CollectionCard

@@ -1,17 +1,17 @@
-import { useRouter } from "next/router";
-import Link from "next/link";
-import { AuthForm } from "../components/forms/AuthForm";
-import { SlideOver } from "../components/ui/SlideOver";
-import HomeLayout from "../components/layouts/HomeLayout";
 import {
   AnnotationIcon,
   GlobeAltIcon,
   LightningBoltIcon,
-  ScaleIcon,
+  ScaleIcon
 } from "@heroicons/react/outline";
 import Button from "components/ui/buttons/Button";
 import { useUser } from "lib/hooks/use-user";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
+import { AuthForm } from "../components/forms/AuthForm";
+import HomeLayout from "../components/layouts/HomeLayout";
+import { SlideOver } from "../components/ui/SlideOver";
 
 const Home = () => {
   const [isOpen, setIsOpen] = useState(false);

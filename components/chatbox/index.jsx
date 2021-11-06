@@ -1,5 +1,5 @@
 import { SlideOver } from "@components/ui/SlideOver";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Info } from "react-feather";
 import { useSelector } from "react-redux";
 import { ChatSidebar } from "./ChatSidebar";
@@ -7,30 +7,37 @@ import { ChatInput } from "./Input";
 import { MessageList } from "./MessagesList";
 
 export const ChatBox = () => {
+  const channel = useSelector((s) => s.chat.current_channel);
+
   return (
     <>
       <ChatSidebar />
-      <div className="flex flex-col flex-grow">
-        <ChatHeader
-          title="My awesome channel"
-          description="lemme think about it..."
-        />
-        <MessageList />
-        <ChatInput />
-      </div>
+      {channel ? (
+        <div className="flex flex-col flex-grow">
+          <ChatHeader
+            title="My awesome channel"
+            description="lemme think about it..."
+          />
+          <MessageList channel={channel} />
+          <ChatInput />
+        </div>
+      ) : (
+        <div></div>
+      )}
     </>
   );
 };
 
-const ChatHeader = ({ title, description }) => {
+const ChatHeader = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const channel = useSelector((s) => s.chat.current_channel);
+  const title = channel?.title || "Loading...";
 
   return (
     <>
       <div className="flex items-center flex-shrink-0 px-5 py-3.5 bg-neutral-600">
         <div className="mr-3 -mb-1">
-          <h1 className="text-sm font-bold leading-none">{title}</h1>
-          <span className="text-xs leading-none">{description}</span>
+          <h1 className="font-bold leading-none "># {title}</h1>
         </div>
         <button className="ml-auto text-gray-400 ">
           <Info

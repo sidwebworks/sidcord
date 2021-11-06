@@ -1,33 +1,36 @@
 import { EmojiHappyIcon } from "@heroicons/react/solid";
 import data from "emoji-mart-virtualized/data/twitter.json";
 import NimblePicker from "emoji-mart-virtualized/dist/components/picker/nimble-picker";
+import { CHAT } from "lib/redux/actions";
+import { nanoid } from "nanoid";
 import { useCallback, useMemo, useRef, useState } from "react";
-import { useForm } from "react-hook-form";
 import { Send } from "react-feather";
+import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useOnClickOutside } from "../../lib/hooks/use-outsideclick";
 import { clsx } from "../../lib/utils/clsx";
-import { CHAT } from "lib/redux/actions";
-import { nanoid } from "nanoid";
 
 export const ChatInput = () => {
   const dispatch = useDispatch();
   const { register, handleSubmit, reset, getValues, setValue } = useForm();
-  const { user } = useSelector((state) => state.user);
+  const user = useSelector((state) => state.auth.user);
+  const channel = useSelector((state) => state.chat.current_channel);
 
   const handleSendMessage = (data, e) => {
     if (data.messageBody.trim() === "") return;
 
-    const message = {
-      sender: { name: user.username, avatar: user.avatar },
-      body: data.messageBody,
-      id: nanoid(),
-      date: Date.now(),
-    };
-
-    dispatch(CHAT.SEND_MESSAGE(message));
-    reset({ messageBody: "" });
+    dispatch(
+      CHAT.SEND_MESSAGE({
+        meta: {
+          target: channel.id,
+          conversation_id: channel.conversation_id,
+          type: "channel",
+        },
+        message: data.messageBody,
+      })
+    );
     updateFieldHeight();
+    reset({ messageBody: "" });
   };
 
   const handleUserKeyPress = (e) => {
@@ -56,6 +59,7 @@ export const ChatInput = () => {
         <textarea
           autoFocus="on"
           id="message-input"
+          rows="1"
           autoComplete="off"
           onKeyPress={handleUserKeyPress}
           onInput={updateFieldHeight}

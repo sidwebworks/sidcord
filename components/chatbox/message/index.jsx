@@ -18,7 +18,7 @@ const Debug = (props) => {
 
 export const Message = (props) => {
   const { sender, body, date, index } = props;
-  const { user } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.auth);
 
   const time = dayjs(date).format("h:mm a");
 

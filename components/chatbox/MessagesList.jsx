@@ -1,9 +1,11 @@
+import { useGetChannelChatQuery } from "lib/redux/api";
 import { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { Message } from "./message";
 
-export const MessageList = () => {
-  const { messages } = useSelector((state) => state.chat);
+export const MessageList = ({ channel }) => {
+  
+  const { data: messages = [], isLoading } = useGetChannelChatQuery(channel);
 
   const scrollRef = useRef(null);
 

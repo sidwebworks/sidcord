@@ -8,13 +8,13 @@ const CollectionCard = ({ name, image, link, description }) => {
           className="object-cover object-center w-full h-full transition-all duration-200 ease-in-out scale-105 group-hover:scale-125 "
         />
       </div>
-      <h3 className="mt-4 text-sm text-gray-100">
-        <a href={link} className="font-medium text-primary">
+      <h3 className="mt-3 text-sm text-gray-100">
+        <a href={link} className="text-lg font-medium text-primary">
           <span className="absolute inset-0" />
           {name}
         </a>
       </h3>
-      <p className="text-base font-semibold text-gray-900">{description}</p>
+      <p className="text-sm text-gray-300">{description}</p>
     </div>
   );
 };

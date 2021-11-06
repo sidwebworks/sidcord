@@ -102,12 +102,14 @@ export default NextAuth({
         );
 
         res = res.data.result;
+        console.log("res: ", res);
 
-        session.tokens = {
-          access_token: res.access_token,
-        };
+        if (!res.user) {
+          throw new Error("Auth API Error");
+        }
 
         session.user = res.user;
+        session.tokens = { access_token: token.access_token };
 
         return session;
       } catch (error) {
