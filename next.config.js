@@ -1,7 +1,7 @@
 const withSvgr = require("next-svgr");
 
 module.exports = withSvgr({
-  reactStrictMode: true,
+  reactStrictMode: false,
   images: {
     domains: ["lh3.googleusercontent.com", "i.imgur.com"],
   },

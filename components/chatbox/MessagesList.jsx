@@ -1,18 +1,25 @@
 import { useGetChannelChatQuery } from "lib/redux/api";
-import { useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
+import { fetchChannelChat } from "lib/redux/api/chat.thunks";
+import { useEffect, useMemo, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Message } from "./message";
 
 export const MessageList = ({ channel }) => {
-  
-  const { data: messages = [], isLoading } = useGetChannelChatQuery(channel);
+  const scrollRef = useRef();
+  const containerRef = useRef();
+  const conversations = useSelector((s) => s.chat.conversations);
 
-  const scrollRef = useRef(null);
+  const messages = useMemo(() => {
+    let convo = conversations.find((el) => el.id === channel.conversation_id);
+    if (!convo) return [];
+    return convo.messages;
+  }, [conversations]);
 
   useEffect(() => {
     if (scrollRef) {
+      console.log(containerRef.current.scrollBottom);
       scrollRef.current.scrollIntoView({
-        behavior: "smooth",
+        behavior: containerRef.current.scrollBottom < 20 ? "smooth" : "auto",
         block: "nearest",
         inline: "end",
       });
@@ -20,9 +27,18 @@ export const MessageList = ({ channel }) => {
   }, [messages]);
 
   return (
-    <div className="flex flex-col flex-grow py-3 overflow-auto bg-neutral-700">
+    <div
+      ref={containerRef}
+      className="flex flex-col flex-grow py-3 overflow-auto bg-neutral-700"
+    >
       {messages.map((msg, i) => (
-        <Message {...msg} index={i} key={msg.id} />
+        <Message
+          date={msg.createdAt}
+          sender={msg.sender}
+          body={msg.body}
+          index={i}
+          key={msg._id}
+        />
       ))}
       <span ref={scrollRef} />
     </div>

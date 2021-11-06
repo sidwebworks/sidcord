@@ -1,6 +1,5 @@
 import { Transition } from "@headlessui/react";
 import { CHAT, UI } from "lib/redux/actions";
-import { useGetAllServersQuery } from "lib/redux/api";
 import React, { Fragment, useEffect } from "react";
 import { Compass, Inbox } from "react-feather";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,21 +8,20 @@ import ServersModal from "./ServersModal";
 export const ChatSidebar = () => {
   const dispatch = useDispatch();
   const current_server = useSelector((s) => s.chat.current_server);
+  const servers = useSelector((s) => s.chat.servers);
   const current_channel = useSelector((s) => s.chat.current_channel);
 
-  const { data } = useGetAllServersQuery();
-
   useEffect(() => {
-    if (data && !current_server) {
-      dispatch(UI.TOGGLE_CHANNEL_MODAL(true));
-    } else if (data && current_server) {
+    if (servers.length && current_server) {
       dispatch(CHAT.JOIN_SERVER({ server: current_server }));
+    } else if (!current_server) {
+      dispatch(UI.TOGGLE_CHANNEL_MODAL(true));
     }
-  }, [data]);
+  }, [current_server]);
 
   return (
     <>
-      <ServersModal servers={data} />
+      <ServersModal />
 
       <Transition
         as={Fragment}
@@ -49,7 +47,7 @@ export const ChatSidebar = () => {
               src={current_server?.image || "https://i.imgur.com/ZUsxbHK.jpeg"}
             />
           </figure>
-          {data && data.length > 0 && (
+          {current_server && (
             <Options
               channels={current_server.channels}
               current={current_channel}

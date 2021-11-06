@@ -55,7 +55,7 @@ export const Message = (props) => {
           ])}
         >
           <div className="-mt-1">
-            <span className="text-sm font-semibold">{sender.name}</span>
+            <span className="text-xs font-medium text-gray-300">{sender.name}</span>
             <span className="ml-1 text-xs text-gray-500">{time}</span>
           </div>
           <div className="py-2">
